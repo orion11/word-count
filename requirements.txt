@@ -1,0 +1,7 @@
+gunicorn
+flask
+inscriptis
+nltk
+redis
+requests
+rq

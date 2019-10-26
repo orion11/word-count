@@ -1,0 +1,18 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    environment: 
+      FLASK_ENV: development
+    volumes:
+      - .:/code
+    command: ['./wait-for-it.sh', '--timeout=2', 'redis:5432', '--', 'flask', 'run']
+
+  redis:
+    image: "redis:alpine"
+
+  worker:
+    build: .
+    command: ['./wait-for-it.sh', '--timeout=2', 'redis:5432', '--', 'python', 'worker.py']
